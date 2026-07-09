@@ -1,6 +1,6 @@
-# CPRAIO_CPJM
+# CPRAIO_CPJMD
 
-Página estática para consulta de atendimento CPRAIO_CPJM por município do Ceará.
+Página estática para consulta de atendimento CPRAIO_CPJMD por município do Ceará.
 
 ## Link principal previsto
 

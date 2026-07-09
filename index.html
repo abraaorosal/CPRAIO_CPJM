@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#082d63" />
+  <meta name="description" content="Consulta de atendimento CPRAIO_CPJM por município do Ceará." />
+  <title>Atendimento CPRAIO_CPJM</title>
+  <link rel="icon" type="image/svg+xml" href="assets/logo-raio.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="ribbon"></div>
+  <header>
+    <div class="wrap hero">
+      <section>
+        <div class="brand"><span class="mark"></span><span>Governo do Estado do Ceará · PMCE · CPRAIO</span></div>
+        <h1>Atendimento CPRAIO_CPJM</h1>
+        <p class="sub">Consulta territorial por município para identificar o BPRAIO de atendimento, a sede responsável e a base RAIO mais próxima.</p>
+      </section>
+      <aside class="logos" aria-label="Logos institucionais">
+        <div class="logo"><img alt="Polícia Militar do Ceará" src="assets/logo-pmce.svg"></div>
+        <div class="logo"><img alt="CPRAIO PMCE" src="assets/logo-raio.svg"></div>
+      </aside>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="panel search"><input id="q" list="dl" autocomplete="off" placeholder="Buscar município. Ex.: Sobral, Crato, Caucaia..."><datalist id="dl"></datalist><select id="f"><option value="">Todos os BPRAIOs</option></select><button id="go">Buscar sede</button></section>
+    <section class="stats"><div class="stat"><strong id="tMun">—</strong><span>municípios consultáveis</span></div><div class="stat"><strong>9</strong><span>batalhões RAIO</span></div><div class="stat"><strong id="tBase">—</strong><span>bases de referência</span></div><div class="stat"><strong id="tRes">—</strong><span>resultados exibidos</span></div></section>
+    <section class="resultgrid"><article class="result"><span class="tag">Resultado da consulta</span><h2 id="mNome">Selecione um município</h2><p id="mTxt">Digite o nome do município para visualizar a sede de atendimento CPRAIO_CPJM.</p><div class="answers"><div class="box"><small>BPRAIO</small><strong id="mBp">—</strong></div><div class="box"><small>Sede</small><strong id="mSede">—</strong></div><div class="box"><small>Base próxima</small><strong id="mBase">—</strong></div></div></article><aside class="panel details"><h3>Detalhamento</h3><div class="line"><span>Município</span><strong id="dMun">—</strong></div><div class="line"><span>Atendimento</span><strong id="dBp">—</strong></div><div class="line"><span>Sede responsável</span><strong id="dSede">—</strong></div><div class="line"><span>Referência territorial</span><strong id="dBase">—</strong></div></aside></section>
+    <section><div class="title"><h3>Distribuição por BPRAIO</h3><span>Resumo automático</span></div><div class="summary" id="sum"></div></section>
+    <section class="panel tablepanel"><div class="title"><h3>Municípios e atendimento</h3><span id="info">Carregando...</span></div><div class="scroll"><table><thead><tr><th>Município</th><th>Atendimento</th><th>Sede</th><th>Base mais próxima</th></tr></thead><tbody id="tb"></tbody></table></div><div class="cards" id="cards"></div></section>
+    <footer>Atendimento CPRAIO_CPJM · Consulta interna de apoio territorial · Dados organizados a partir da estrutura operacional dos 9 BPRAIOs.</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

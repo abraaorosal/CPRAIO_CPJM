@@ -6,8 +6,11 @@
   <meta name="theme-color" content="#082d63" />
   <meta name="description" content="Consulta de atendimento CPRAIO_CPJM por município do Ceará." />
   <title>Atendimento CPRAIO_CPJM</title>
-  <link rel="icon" type="image/svg+xml" href="assets/logo-raio.svg" />
+  <link rel="icon" type="image/svg+xml" href="assets/logo-raio.svg?v=20260709-oficial-4" />
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .suggest{position:relative;min-width:0}.suggest input{width:100%}.suggestions{display:none;position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:80;max-height:330px;overflow:auto;padding:7px;border:1px solid #c8d8d5;border-radius:18px;background:#fff;box-shadow:0 18px 42px rgba(8,45,99,.18)}.suggestions.open{display:block}.suggestion{display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;padding:12px 13px;border-radius:14px;cursor:pointer;color:#172033}.suggestion:hover,.suggestion.active{background:#eef9f6}.suggestion strong{display:block;color:#082d63;font-size:.95rem}.suggestion small{display:block;color:#667085;font-weight:800;margin-top:2px}.suggestion .mini{flex:0 0 auto;color:#fff;background:#082d63;border-radius:999px;padding:5px 9px;font-size:.72rem;font-weight:950;white-space:nowrap}@media(max-width:620px){.suggestions{position:relative;top:auto;margin-top:8px;max-height:260px}.suggestion{padding:11px}.suggestion .mini{font-size:.68rem}}
+  </style>
 </head>
 <body>
   <div class="ribbon"></div>
@@ -19,13 +22,13 @@
         <p class="sub">Consulta territorial por município para identificar o BPRAIO de atendimento, a sede responsável e a base RAIO mais próxima.</p>
       </section>
       <aside class="logos" aria-label="Logos institucionais">
-        <div class="logo"><img alt="Polícia Militar do Ceará" src="assets/logo-pmce.svg"></div>
-        <div class="logo"><img alt="CPRAIO PMCE" src="assets/logo-raio.svg"></div>
+        <div class="logo"><img alt="Polícia Militar do Ceará" src="assets/logo-pmce.svg?v=20260709-oficial-4" loading="eager" decoding="sync"></div>
+        <div class="logo"><img alt="CPRAIO PMCE" src="assets/logo-raio.svg?v=20260709-oficial-4" loading="eager" decoding="sync"></div>
       </aside>
     </div>
   </header>
   <main class="wrap">
-    <section class="panel search"><input id="q" list="dl" autocomplete="off" placeholder="Buscar município. Ex.: Sobral, Crato, Caucaia..."><datalist id="dl"></datalist><select id="f"><option value="">Todos os BPRAIOs</option></select><button id="go">Buscar sede</button></section>
+    <section class="panel search"><div class="suggest"><input id="q" list="dl" autocomplete="off" placeholder="Buscar município. Ex.: Sobral, Crato, Caucaia..." aria-autocomplete="list" aria-controls="munSuggestions" aria-expanded="false"><datalist id="dl"></datalist><div id="munSuggestions" class="suggestions" role="listbox" aria-label="Sugestões de municípios"></div></div><select id="f"><option value="">Todos os BPRAIOs</option></select><button id="go">Buscar sede</button></section>
     <section class="stats"><div class="stat"><strong id="tMun">—</strong><span>municípios consultáveis</span></div><div class="stat"><strong>9</strong><span>batalhões RAIO</span></div><div class="stat"><strong id="tBase">—</strong><span>bases de referência</span></div><div class="stat"><strong id="tRes">—</strong><span>resultados exibidos</span></div></section>
     <section class="resultgrid"><article class="result"><span class="tag">Resultado da consulta</span><h2 id="mNome">Selecione um município</h2><p id="mTxt">Digite o nome do município para visualizar a sede de atendimento CPRAIO_CPJM.</p><div class="answers"><div class="box"><small>BPRAIO</small><strong id="mBp">—</strong></div><div class="box"><small>Sede</small><strong id="mSede">—</strong></div><div class="box"><small>Base próxima</small><strong id="mBase">—</strong></div></div></article><aside class="panel details"><h3>Detalhamento</h3><div class="line"><span>Município</span><strong id="dMun">—</strong></div><div class="line"><span>Atendimento</span><strong id="dBp">—</strong></div><div class="line"><span>Sede responsável</span><strong id="dSede">—</strong></div><div class="line"><span>Referência territorial</span><strong id="dBase">—</strong></div></aside></section>
     <section><div class="title"><h3>Distribuição por BPRAIO</h3><span>Resumo automático</span></div><div class="summary" id="sum"></div></section>
@@ -33,5 +36,8 @@
     <footer>Atendimento CPRAIO_CPJM · Consulta interna de apoio territorial · Dados organizados a partir da estrutura operacional dos 9 BPRAIOs.</footer>
   </main>
   <script src="app.js"></script>
+  <script>
+    (()=>{const input=document.getElementById('q'),box=document.getElementById('munSuggestions'),btn=document.getElementById('go');const n=s=>(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toUpperCase().trim();const e=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));const list=typeof rows!=='undefined'?rows:DATA.map(([nome,bp,sede,base])=>({nome,bp,sede,base,busca:n(nome)}));let active=-1,shown=[];function find(){const q=n(input.value);if(!q)return[];return list.filter(m=>m.busca.includes(q)).sort((a,b)=>a.busca.indexOf(q)-b.busca.indexOf(q)||a.nome.localeCompare(b.nome,'pt-BR')).slice(0,12)}function hide(){box.classList.remove('open');box.innerHTML='';input.setAttribute('aria-expanded','false');active=-1;shown=[]}function activate(i){const opts=[...box.querySelectorAll('.suggestion')];if(!opts.length)return;active=(i+opts.length)%opts.length;opts.forEach((el,idx)=>el.classList.toggle('active',idx===active));opts[active].scrollIntoView({block:'nearest'})}function show(){shown=find();active=-1;if(!shown.length){hide();return}box.innerHTML=shown.map((m,i)=>`<div class="suggestion" role="option" data-i="${i}" tabindex="-1"><span><strong>${e(m.nome)}</strong><small>${e(m.bp)} · sede ${e(m.sede)}</small></span><span class="mini">${e(m.base)}</span></div>`).join('');box.classList.add('open');input.setAttribute('aria-expanded','true');[...box.querySelectorAll('.suggestion')].forEach((el,i)=>{el.onclick=()=>{set(shown[i]);hide()};el.onmouseenter=()=>activate(i)})}input.oninput=show;input.onfocus=show;input.onkeydown=ev=>{if(ev.key==='ArrowDown'){ev.preventDefault();show();activate(active+1)}else if(ev.key==='ArrowUp'){ev.preventDefault();show();activate(active-1)}else if(ev.key==='Enter'){ev.preventDefault();show();if(shown.length)set(shown[Math.max(active,0)]);else btn.click();hide()}else if(ev.key==='Escape')hide()};btn.onclick=()=>{const first=find()[0]||filtered()[0];if(first)set(first)};document.addEventListener('click',ev=>{if(!ev.target.closest('.suggest'))hide()})})();
+  </script>
 </body>
 </html>
